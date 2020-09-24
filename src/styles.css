@@ -12,7 +12,9 @@ h1 {
     font-weight: lighter;
   }
   body {
-    margin: 2em;
+    margin: 0 auto;
+    max-width: 800px;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   }
   body, input[type="text"], button {
     color: #333;
