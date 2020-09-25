@@ -1,9 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 
 h1 {
-    color: #369;
+    margin-top: 0;
+    color: black;
     font-family: 'Roboto', sans-serif;
-    font-size: 250%;
+    font-size: 36px;
+    line-height: 40px;
+    text-align: center;
+    text-decoration: double;
   }
 
   h2, h3 {
@@ -11,15 +15,13 @@ h1 {
     font-family: 'Roboto', sans-serif;
     font-weight: lighter;
   }
+
   body {
+    background: #e8f5e9;
     margin: 0 auto;
-    max-width: 800px;
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
   }
-  body, input[type="text"], button {
-    color: #333;
-    font-family: Cambria, Georgia;
-  }
+
   /* everywhere else */
   * {
     font-family: 'Roboto', sans-serif;
