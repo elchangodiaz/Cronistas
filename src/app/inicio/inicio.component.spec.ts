@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ParallaxSrcollComponent } from './parallax-srcoll.component';
+import { InicioComponent } from './inicio.component';
 
-describe('ParallaxSrcollComponent', () => {
-  let component: ParallaxSrcollComponent;
-  let fixture: ComponentFixture<ParallaxSrcollComponent>;
+describe('InicioComponent', () => {
+  let component: InicioComponent;
+  let fixture: ComponentFixture<InicioComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ParallaxSrcollComponent ]
+      declarations: [ InicioComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ParallaxSrcollComponent);
+    fixture = TestBed.createComponent(InicioComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

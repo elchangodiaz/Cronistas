@@ -1,13 +1,127 @@
 .container {
-    max-width: 960px;
+    max-width: 100%;
     margin: 0 auto;
     background-color: #f9f9f9;
     padding: 25px;
+    text-align: center;
+}
+
+.content{
+    max-width: 50%;
+    margin: 0 auto;
+    padding: 25px;
+    align-items: left;
+}
+
+@media all and (min-width: 480px) {
+    .parallax-web {display:block;}
+    .parallax {display:none;}
+    .parallax1 {display:none;}
+    .parallax2 {display:none;}
+}
+
+@media all and (max-width: 479px) {
+    .parallax-web {display:none;}
+    .parallax {display:block !important;}
+}
+
+@media all and (max-width: 479px) {
+    .parallax-web {display:none;}
+    .parallax1 {display:block !important;}
+}
+
+@media all and (max-width: 479px) {
+    .parallax-web {display:none;}
+    .parallax2 {display:block !important;}
+}
+
+
+.parallax-web {
+    min-height: 500px;
+    background: transparent;
 }
 
 .parallax {
-    background: url('~src/assets/images/iglesia2.jpg') no-repeat center;
+    background: url('~src/assets/images/Iglesia3.jpg') no-repeat center;
     background-size: cover;
     background-attachment: fixed;
     height: 500px;
+}
+
+.parallax1 {
+    background: url('~src/assets/images/Iglesia1.jpg') no-repeat center;
+    background-size: cover;
+    background-attachment: fixed;
+    height: 500px;
+}
+
+.parallax2 {
+    background: url('~src/assets/images/Iglesia4.jpg') no-repeat center;
+    background-size: cover;
+    background-attachment: fixed;
+    height: 500px;
+}
+
+.container span {
+    padding: 0;
+    margin: 0;
+    font-family: sans-serif;
+    color: black;
+    text-transform: uppercase;
+    display: block;
+}
+
+.text1{
+    font-size: 60px;
+    font-weight: 700;
+    letter-spacing: 8px;
+    margin-bottom: 20px;
+}
+
+.big-title{
+    position: absolute;
+    color: #cecb3c;
+    z-index: 30;
+    line-height: 5rem;
+    margin-top: 500;
+    top: calc(500px - 2rem);
+    max-width: max-content;
+    text-align: center;
+    font-size: 4.5rem;
+    font-weight: 600;
+    text-shadow: 2px 2px 4px #000000;
+}
+
+section{
+    width: 100%;
+
+}
+
+section .container{
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    justify-content: center;
+    min-height: 50vh;
+}
+
+.subtitle{
+    font-weight: 700;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    padding-bottom: .5rem;
+    position: relative;
+    
+}
+
+
+.shadow{
+    position: relative;
+    bottom: 100%;
+    height: 300px;
+    width: 100%;
+    left: 0;
+    z-index: 1;
+    background-color: linear-gradient(to top, black, transparent);
 }
