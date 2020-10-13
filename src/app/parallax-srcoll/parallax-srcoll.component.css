@@ -86,7 +86,7 @@
     color: #ffffff;
     z-index: 2;
     line-height: 5rem;
-    top: calc(200px - 2rem);
+    top: calc(150px - 2rem);
     max-width: max-content;
     text-align: center;
     font-size: 4.5rem;
@@ -128,3 +128,4 @@ section .container{
     z-index: 1;
     background-color: linear-gradient(to top, black, transparent);
 }
+

@@ -25,6 +25,7 @@ nav {
     display: flex;
     justify-content: space-around;
     width: 100%;
+    padding-inline-start: 120px;
 }
 
 .nav-links li {
