@@ -35,6 +35,9 @@
     .parallax2 {display:block !important;}
 }
 
+@media all and (max-width: 700px){
+    
+}
 
 .parallax-web {
     min-height: 500px;
@@ -80,16 +83,16 @@
 
 .big-title{
     position: absolute;
-    color: #cecb3c;
-    z-index: 30;
+    color: #ffffff;
+    z-index: 2;
     line-height: 5rem;
-    margin-top: 500;
-    top: calc(500px - 2rem);
+    top: calc(200px - 2rem);
     max-width: max-content;
     text-align: center;
     font-size: 4.5rem;
     font-weight: 600;
     text-shadow: 2px 2px 4px #000000;
+    margin: 20px;
 }
 
 section{

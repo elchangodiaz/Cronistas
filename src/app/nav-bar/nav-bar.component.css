@@ -1,69 +1,68 @@
-.title {
-    width: 80%;
+* {
+    padding: 0px;
     margin: 0 auto;
-    margin-top: 0;
+    box-sizing: border-box;
+
 }
 
-header {
-    background: #a82828;
-}
-
-header::after{
-    content: '';
-    display: table;
-    clear: both;
-}
 
 .logo {
     padding: 10px;
     float: left;
+    margin-left: 15px;
 }
 
 nav {
-    float: right;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 8vh;
+    background-color: #a82828;
 }
 
-nav ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
+.nav-links {
+    position: fixed;
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
 }
 
-nav li {
-    display: inline-block;
-    margin-left: 70px;
-    padding-top: 40px;
+.nav-links li {
+list-style: none;
 
-    position: relative;
 }
 
-nav a {
+.nav-links li:hover{
+    background-color: black;
+    height: 20px;
+}
+
+.nav-links li a {
     color: #f1f8e9;
     text-decoration: none;
     text-transform: uppercase;
     font-size: 14px;
-}
-
-nav a:hover {
-    color: #000;
-}
-
-nav a::before {
-    content: '';
-    display: block;
-    height: 5px;
-    width: 0%;
-    background-color: #f1f8e9;
-    position: absolute;
-    top: 0;
-    transition: all ease-in-out 250ms;
+    font-weight: bold;
+    letter-spacing: 3px;
+    z-index: 8;
     
 }
 
-nav a:hover::before {
-    width: 100%;
+
+
+.burger{
+    display: none;
+    z-index: 4;
+    cursor: pointer;
 }
 
+.burger div{
+    width: 25px;
+    height: 3px;
+    background-color: #f1f8e9;
+    margin: 5px;
+    transition: all 0.3s ease;
+}
 
 
 .fa {
@@ -80,4 +79,67 @@ nav a:hover::before {
   .fa-facebook {
     background: #3B5998;
     color: white;
+  }
+
+  @media screen and (min-width:769){
+      .nav-links{
+          width: 60%;
+      }
+  }
+
+  @media screen and (max-width:768px){
+        body{
+            overflow-x: hidden;
+        }
+
+      .nav-links{
+          position: fixed;
+          right: 0px;
+          height: 92vh;
+          top: 8vh;
+          background-color: #a82828;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          width: 65%;
+          z-index: 6;
+          transform: translateX(100%);
+          transition: transform 0.5s ease-in;
+          
+      }
+      .nav-links li{
+        opacity: 100%;
+    }
+
+    .burger{
+        display: block;
+        margin-right: 40px;
+    }
+  }
+
+  .nav-active{
+      transform: translateX(0%);
+  }
+
+  @keyframes navLinkFade{
+      from{
+          opacity: 0;
+          transform: translateX(50px);
+      }
+      to{
+          opacity: 1;
+          transform: translateX(0px);
+      }
+  }
+
+  
+.toggle .line1{
+    transform: rotate(-45deg) translate(-5px, 6px);
+  }
+  
+  .toggle .line2{
+    opacity: 0;
+  }
+  .toggle .line3{
+    transform: rotate(-45deg) translate(-5px, 6px);
   }
