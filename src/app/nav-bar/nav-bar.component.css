@@ -82,6 +82,7 @@ list-style: none;
     color: white;
   }
 
+
   @media screen and (min-width:769){
       .nav-links{
           width: 60%;
@@ -96,6 +97,7 @@ list-style: none;
       .nav-links{
           position: fixed;
           right: 0px;
+          margin-top: 20px;
           height: 92vh;
           top: 8vh;
           background-color: #a82828;
@@ -106,6 +108,7 @@ list-style: none;
           z-index: 6;
           transform: translateX(100%);
           transition: transform 0.5s ease-in;
+          overflow-y: hidden;
           
       }
       .nav-links li{
