@@ -11,6 +11,8 @@ import { InicioComponent } from './inicio/inicio.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LottieAnimationViewModule } from 'ng-lottie';
+import { ContactComponent } from './contact/contact.component';
+import { FormsModule } from '@angular/forms'
 
 
 @NgModule({
@@ -22,14 +24,16 @@ import { LottieAnimationViewModule } from 'ng-lottie';
     ArticleListComponent,
     AboutComponent,
     ParallaxSrcollComponent,
-    InicioComponent
+    InicioComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
     BrowserAnimationsModule,
-    LottieAnimationViewModule.forRoot()
+    LottieAnimationViewModule.forRoot(),
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

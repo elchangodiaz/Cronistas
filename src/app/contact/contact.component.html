@@ -1,0 +1,32 @@
+<section class="contact-primary">
+    <div class="contact-body">
+        <div class="container">
+            <h1 class="title">Contactanos</h1>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+
+        <form (ngSubmit)="submitForm()">
+            <!--Name-->
+            <div class="field">
+                <label class="label">Nombre</label>
+                <input type="text" name="name" class="input" [(ngModel)]="name">
+            </div>
+            <!--email-->
+            <div class="field">
+                <label class="label">Email</label>
+                <input type="text" name="email" class="input" [(ngModel)]="email">
+            </div>
+            <!--messafe-->
+            <div class="field">
+                <label class="label">Tu mensaje</label>
+                <textarea type="text" name="message" class="textarea" [(ngModel)]="message"></textarea>
+            </div>
+            <!--submit button-->
+            <button type="submit" class="button-send">Enviar</button>
+        </form>
+    </div>
+</section>
