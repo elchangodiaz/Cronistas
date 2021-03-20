@@ -12,8 +12,16 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LottieAnimationViewModule } from 'ng-lottie';
 import { ContactComponent } from './contact/contact.component';
-import { FormsModule } from '@angular/forms'
-
+import { FormsModule } from '@angular/forms';
+import { environment } from '../environments/environment';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { ConsultasComponent } from './consultas/consultas.component';
+import {NgxPaginationModule} from 'ngx-pagination';
+import {ReactiveFormsModule } from '@angular/forms'
+import { MapForestComponent } from './map-forest/map-forest.component';
+import { BlogServiceService } from '../app/services/blog-service.service';
+import { HttpClientModule } from '@angular/common/http'
 
 @NgModule({
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
@@ -25,7 +33,9 @@ import { FormsModule } from '@angular/forms'
     AboutComponent,
     ParallaxSrcollComponent,
     InicioComponent,
-    ContactComponent
+    ContactComponent,
+    ConsultasComponent,
+    MapForestComponent
   ],
   imports: [
     BrowserModule,
@@ -33,10 +43,15 @@ import { FormsModule } from '@angular/forms'
     NgbModule,
     BrowserAnimationsModule,
     LottieAnimationViewModule.forRoot(),
-    FormsModule
+    FormsModule,
+    AngularFireModule.initializeApp(environment.firebase, 'angularfs'),
+    AngularFirestoreModule,
+    NgxPaginationModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [],
-  bootstrap: [AppComponent],
+  providers: [BlogServiceService],
+  bootstrap: [ AppComponent]
 
 })
 export class AppModule { }
