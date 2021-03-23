@@ -1,6 +1,11 @@
 export class Publication{
-    id: number;
-    nombre: String;
-    apellido: String;
-    data: String;
+    
+    idPublication :String ;
+	title : String;
+	postDate : String;
+	content : String;
+	modifications : string[][];
+	status : String;
+	image : String;
+
 }

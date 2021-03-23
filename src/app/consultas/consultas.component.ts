@@ -11,11 +11,11 @@ import { Publication } from '../Model/Publication'
 })
 export class ConsultasComponent implements OnInit {
 
+  publication : Publication[];
   publications:Publication[];
   closeResult = '';
 
-  consultasForm: FormGroup;
-
+  publicationsForm: FormGroup;
   idFirebaseActualizar: string;
   actualizar: boolean;
 
@@ -32,11 +32,7 @@ export class ConsultasComponent implements OnInit {
 
     this.idFirebaseActualizar = "";
     this.actualizar = false;
-    /*this.blogServiceService.getPublications()
-                          .subscribe(data => {
-                            this.publications=data
-                          })*/
-
+    
     this.config = {
       itemsPerPage: 5,
       currentPage: 1,
@@ -44,28 +40,29 @@ export class ConsultasComponent implements OnInit {
     };
 
 
-    this.consultasForm = this.fb.group({
+    this.publicationsForm = this.fb.group({
       title: ['', Validators.required],
       content: ['', Validators.required],
       image: ['', Validators.required],
-      postDate: ['', Validators.required]
+      /*postDate: ['', Validators.required]*/
     })
 
 
     this.blogServiceService.getPublications().subscribe(resp => {
+      this.publications = resp;  
       /*this.collection.data = resp.map((e: any) => {*/
-        this.collection.data = resp.map((e: any) => {
-        return {
+       /* console.log(resp);*/
+     /*   return {
           title: e.payload.doc.data().title,
           content: e.payload.doc.data().content,
           image: e.payload.doc.data().image,
           postDate: e.payload.doc.data().postDate,
           idFirebase: e.payload.doc.id
         }
-      })
+      })*/
     },
       error => {
-        console.error();
+        console.error(error);
       });
 
   }
@@ -75,39 +72,58 @@ export class ConsultasComponent implements OnInit {
     this.config.currentPage = event;
   }
 
-  eliminar(item: any): void {
-    this.blogServiceService.deletePublication(item.idFirebase);
+  eliminar(publication): void {
+    /*this.blogServiceService.deletePublication(item.idFirebase);*/
+    this.blogServiceService.deletePublication(publication.idPublication).subscribe(resp => {
+     /* console.log(resp)*/
+      this.publications.push(resp);
+      this.publications = this.publications.filter(publication => resp.idPublication!==publication.idPublication)
+    })
   }
 
   guardarRegistro(): void {
-    this.blogServiceService.createPublication(this.consultasForm.value).then(resp => {
-      this.consultasForm.reset();
+    this.blogServiceService.createPublication(this.publicationsForm.value).subscribe(resp => {
+      this.publicationsForm.reset();
       this.modalService.dismissAll();
-    }).catch(error => {
+      this.publications.push(resp);
+    },
+    /*this.blogServiceService.createPublication(this.publicationsForm.value).then(resp => {
+      this.publicationsForm.reset();
+      this.modalService.dismissAll();
+    })).catch(error => {*/
+    error => {
       console.error(error);
-    })
-
+    });
   }
 
-  actualizarRegistro() {
-    if (this.idFirebaseActualizar !== null || this.idFirebaseActualizar !== "") {
-        this.blogServiceService.updatePublication(this.idFirebaseActualizar, this.consultasForm.value).then(resp => {
-        this.consultasForm.reset();
+  actualizarRegistro(): void {
+    /*if (idPublication !== null || idPublication !== "") {*/
+        /*this.blogServiceService.updatePublication(this.idFirebaseActualizar, this.publicationsForm.value).then(resp => {
+        this.publicationsForm.reset();
         this.modalService.dismissAll();
       }).catch(error => {
         console.error(error);
       });
+      },*/
+      this.blogServiceService.updatePublication(this.idFirebaseActualizar, this.publicationsForm.value).subscribe(resp => {
+        this.publicationsForm.reset();
+        this.modalService.dismissAll();
+        this.publications = this.publications.filter(publication => resp.idPublication!==publication.idPublication)
+        this.publications.push(resp);
+      },
+      error => {
+        console.error(error);
+      });
     }
-  }
 
   openEditar(content, item:any) {
-    this.consultasForm.setValue({
+    this.publicationsForm.setValue({
       title: item.title,
       content: item.content,
       image: item.image,
-      postDate: item.postDate
+      /*postDate: item.postDate*/
     });
-    this.idFirebaseActualizar = item.idFirebase;
+    this.idFirebaseActualizar = item.idPublication;
     this.actualizar = true;
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;

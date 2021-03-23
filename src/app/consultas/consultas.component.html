@@ -16,7 +16,7 @@
     </thead>
     <tbody>
       <!--  <tr *ngFor="let item of collection.data  | paginate: config">   -->
-      <tr *ngFor="let item of collection.data  | paginate: config">
+      <tr *ngFor="let item of publications  | paginate: config">
       <td>{{item.title}}</td>
       <td>{{item.content}}</td>
       <td>{{item.image}}</td>
@@ -38,7 +38,7 @@
       </button>
     </div>
     <div class="modal-body">
-      <form [formGroup]="consultasForm">
+      <form [formGroup]="publicationsForm">
         <div class="form-group">
           <label>Titulo</label>
           <input type="text" formControlName="title" class="form-control">
@@ -54,9 +54,8 @@
       </form>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="guardarRegistro()" *ngIf="!actualizar">Save</button>
-      <button type="button" class="btn btn-outline-dark" (click)="actualizarRegistro()"
-        *ngIf="actualizar">Actualizar</button>
+      <button type="button" class="btn btn-outline-dark" [disabled]="publicationsForm.invalid" (click)="guardarRegistro()" *ngIf="!actualizar">Save</button>
+      <button type="button" class="btn btn-outline-dark" [disabled]="publicationsForm.invalid" (click)="actualizarRegistro()" *ngIf="actualizar">Actualizar</button>
     </div>
   </ng-template>
   <hr>

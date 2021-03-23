@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { HttpClient } from '@angular/common/http';
 import { Publication } from '../Model/Publication';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,30 +12,30 @@ export class BlogServiceService {
   publication:Publication
 
   constructor(
-    private firestore: AngularFirestore
-    /*private http: HttpClient*/
+    private firestore: AngularFirestore,
+    private httpClient: HttpClient
   ) { }
 
-    Url='http://localhost/8080/cronistastopilejo/api/blog';
+    Url='http://localhost:8080/api/blog';
 
-    getPublications(){
-      return this.firestore.collection("publication").snapshotChanges();
-      /*return this.http.get<Publication[]>(this.Url);*/
+    getPublications(): Observable<any> {
+      /*return this.firestore.collection("publication").snapshotChanges();*/
+      return this.httpClient.get(this.Url);
     }
 
-    createPublication(publication:any){
-      return this.firestore.collection("publication").add(publication);
-      /* return this.http.post<Publication>(this.Url + '/add', publication); */
+    createPublication(publication:any) : Observable<any> {
+      /*return this.firestore.collection("publication").add(publication);*/
+      return this.httpClient.post(this.Url + '/add', publication); 
     }
 
-    updatePublication(id:any, publication:any){
-      return this.firestore.collection("publication").doc(id).update(publication);
-      /*return this.http.put('${this.Url}' + '/{id}/update', id, publication);*/
+    updatePublication(publication:any, idPublication:any,) : Observable<any>{
+      /*return this.firestore.collection("publication").doc(id).update(publication);*/
+      return this.httpClient.put(this.Url + '/' + idPublication + '/update', publication);
     }
 
-    deletePublication(id:any){
-      return this.firestore.collection("publication").doc(id).delete();
-      /*return this.http.delete('${this.Url}' + '/{id}/delete', id);*/
+    deletePublication(idPublication:any) : Observable<any>{
+      /*return this.firestore.collection("publication").doc(id).delete();*/
+      return this.httpClient.delete(this.Url + '/' + idPublication + '/delete');
     }
 
 }
