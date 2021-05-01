@@ -1,5 +1,12 @@
 package com.jmv.cronistas.service.implementation;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -7,6 +14,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
+import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 import javax.annotation.PostConstruct;
@@ -15,14 +24,23 @@ import javax.print.Doc;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.api.core.ApiFuture;
+import com.google.auth.Credentials;
+import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
 import com.google.cloud.firestore.WriteResult;
+import com.google.cloud.storage.BlobId;
+import com.google.cloud.storage.BlobInfo;
+import com.google.cloud.storage.Bucket;
+import com.google.cloud.storage.Storage;
+import com.google.cloud.storage.StorageOptions;
 import com.jmv.cronistas.dto.PublicationDTO;
 import com.jmv.cronistas.repository.FirebaseConfig;
 import com.jmv.cronistas.service.IPublicationService;
@@ -36,6 +54,7 @@ public class PublicationServiceImplementation implements IPublicationService {
 
 	@Autowired
 	private FirebaseConfig firebaseConfig;
+	
 
 	@Override
 	public List<PublicationDTO> listPublications() {
@@ -92,11 +111,14 @@ public class PublicationServiceImplementation implements IPublicationService {
 	@Override
 	public PublicationDTO createPublication(PublicationDTO publicationDto) {
 		String oldTitle = null;
+		String TEMP_URL;
 		oldTitle = getPublication(publicationDto.getTitle()).getTitle();
 		log.info(oldTitle);
 		if (oldTitle!=null && oldTitle.equals(publicationDto.getTitle()) ) {
 			return null;
 		}else {
+		
+			//uploadImage(imageDTO);
 			publicationDto.setPostDate(dtf.format(now));
 			publicationDto.setStatus("C");
 			Map<String, Object> docData = getDocData(publicationDto);
@@ -186,5 +208,40 @@ public class PublicationServiceImplementation implements IPublicationService {
 		docData.put("image", publication.getImage());
 		return docData;
 	}
+/*
+	public Object uploadImage(ImageDTO multipartFile) {
+			  try { 
+				  String fileName =multipartFile.getFileName();
+				  fileName = UUID.randomUUID().toString().concat(this.getExtension(fileName));
+				  File file = this.convertToFile(multipartFile.getImageFile(), fileName);
+				  String TEMP_URL = this.uploadFile(file, fileName); 
+				  file.delete();
+		            return ResponseEntity.ok("Successfully Uploaded !" + TEMP_URL);                     // Your customized response
+			}catch(Exception
+						  e) { e.printStackTrace(); 
+				          return ResponseEntity.badRequest();
+			}
+	}
+	
+	private String uploadFile(File file, String fileName) throws IOException{
+		BlobId blobId = BlobId.of("cronistastopilejo-d617b", fileName);
+		BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType("media").build();
+		Storage storage = StorageOptions.newBuilder().setCredentials(firebaseConfig.getCredentials()).build().getService();
+		storage.create(blobInfo, Files.readAllBytes(file.toPath()));
+		return String.format("https://firebasestorage.googleapis.com/v0/b/cronistastopilejo-d617b/o/%s?alt=media", 
+											URLEncoder.encode(fileName, StandardCharsets.UTF_8));
+	}
+	
+    private File convertToFile(MultipartFile multipartFile, String fileName) throws IOException {
+        File tempFile = new File(fileName);
+        try (FileOutputStream fos = new FileOutputStream(tempFile)) {
+            fos.write(multipartFile.getBytes());
+            fos.close();
+        }
+        return tempFile;
+    }
 
+    private String getExtension(String fileName) {
+        return fileName.substring(fileName.lastIndexOf("."));
+    }*/
 }

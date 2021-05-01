@@ -2,6 +2,8 @@ package com.jmv.cronistas.service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.QuerySnapshot;
 import com.jmv.cronistas.dto.PublicationDTO;

@@ -17,6 +17,7 @@ export class BlogServiceService {
   ) { }
 
     Url='http://localhost:8080/api/blog';
+    /*Url='https://consejo-cronistas-topilejo.herokuapp.com/api/blog';*/
 
     getPublications(): Observable<any> {
       /*return this.firestore.collection("publication").snapshotChanges();*/

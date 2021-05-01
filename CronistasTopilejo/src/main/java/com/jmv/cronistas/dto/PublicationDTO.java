@@ -1,10 +1,13 @@
 package com.jmv.cronistas.dto;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Generated;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,4 +26,6 @@ public class PublicationDTO {
 	private List<String> modifications;
 	private String status;
 	private String image;
+
+	
 }

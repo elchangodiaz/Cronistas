@@ -1,3 +1,5 @@
+import { ImageBlog } from "./ImageBlog";
+
 export class Publication{
     
     idPublication :String ;
@@ -7,5 +9,7 @@ export class Publication{
 	modifications : string[][];
 	status : String;
 	image : String;
+	imageFile : ImageBlog;
+	
 
 }

@@ -1,66 +1,82 @@
 <div style="text-align: center;">
-  <h2>Blog</h2>
-  <button type="button" class="btn btn-success" (click)="open(content)">Nuevo</button>
-  <br />
-  <br />
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Cronica</th>
-        <th>Imagen</th>
-        <th>Fecha</th>
-        <th>Opciones</th>
+    <h2>Blog</h2>
+    <button type="button" class="btn btn-success" (click)="open(content)">Nuevo</button>
+    <br />
+    <br />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Cronica</th>
+                <th>Imagen</th>
+                <th>Fecha</th>
+                <th>Opciones</th>
 
-      </tr>
-    </thead>
-    <tbody>
-      <!--  <tr *ngFor="let item of collection.data  | paginate: config">   -->
-      <tr *ngFor="let item of publications  | paginate: config">
-      <td>{{item.title}}</td>
-      <td>{{item.content}}</td>
-      <td>{{item.image}}</td>
-      <td>{{item.postDate}}</td>
-      <td>
-        <button type="button" class="btn btn-primary" (click)="openEditar(content, item)">Editar</button>
-        <button type="button" class="btn btn-danger" (click)="eliminar(item)">Eliminar</button>
-      </td>
-      </tr>
-    </tbody>
-  </table>
-  <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+            </tr>
+        </thead>
+        <tbody>
+            <!--  <tr *ngFor="let item of collection.data  | paginate: config">   -->
+            <tr *ngFor="let item of publications  | paginate: config">
+                <td>{{item.title}}</td>
+                <td>{{item.content}}</td>
+                <td>{{item.image}}</td>
+                <td>{{item.postDate}}</td>
+                <td>
+                    <button type="button" class="btn btn-primary" (click)="openEditar(content, item)">Editar</button>
+                    <button type="button" class="btn btn-danger" (click)="eliminar(item)">Eliminar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
 
-  <ng-template #content let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Nueva publicacion</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <ng-template #content let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Nueva publicacion</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
-    </div>
-    <div class="modal-body">
-      <form [formGroup]="publicationsForm">
-        <div class="form-group">
-          <label>Titulo</label>
-          <input type="text" formControlName="title" class="form-control">
         </div>
-        <div class="form-group">
-          <label>Cronica</label>
-          <input type="text" formControlName="content" class="form-control">
+        <div class="modal-body">
+            <form [formGroup]="publicationsForm">
+                <div class="form-group">
+                    <label>Titulo</label>
+                    <input type="text" formControlName="title" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Cronica</label>
+                    <input type="text" formControlName="content" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Imagen</label>
+                    <input type="text" formControlName="image" class="form-control">
+                </div>
+                <div class="form-group col-12">
+                    <input type="file" id="file" #publicationPhoto (change)="onFileSelected($event)" name="image" autocomplete="off" />
+                </div>
+                <hr>
+                <div *ngIf="currentFileUpload" class="progress mt-2">
+                    <div
+                      class="progress-bar progress-bar-info"
+                      role="progressbar"
+                      attr.aria-valuenow="{{ percentage }}"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                      [ngStyle]="{ width: percentage + '%' }"
+                    >
+                      {{ percentage }}%
+                    </div>
+                  </div>
+            </form>
         </div>
-        <div class="form-group">
-          <label>Imagen</label>
-          <input type="text" formControlName="image" class="form-control">
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" [disabled]="publicationsForm.invalid" (click)="guardarRegistro()" *ngIf="!actualizar">Save</button>
+            <button type="button" class="btn btn-outline-dark" [disabled]="publicationsForm.invalid" (click)="actualizarRegistro()" *ngIf="actualizar">Actualizar</button>
         </div>
-      </form>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" [disabled]="publicationsForm.invalid" (click)="guardarRegistro()" *ngIf="!actualizar">Save</button>
-      <button type="button" class="btn btn-outline-dark" [disabled]="publicationsForm.invalid" (click)="actualizarRegistro()" *ngIf="actualizar">Actualizar</button>
-    </div>
-  </ng-template>
-  <hr>
+    </ng-template>
+    <hr>
 
-  <pre>{{ closeResult }}</pre>
+    <pre>{{ closeResult }}</pre>
 
 
 
