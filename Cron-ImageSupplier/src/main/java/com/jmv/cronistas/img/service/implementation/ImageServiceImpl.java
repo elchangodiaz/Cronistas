@@ -69,8 +69,9 @@ public class ImageServiceImpl implements IImageService {
 		 * filename)); blob.downloadTo(Paths.get(destFilePath));
 		 */
 		 
-        firestoreConfig.downloadFile(filename, destFilePath);
-        return ResponseEntity.ok().body("200 Successfully Downloaded!");
+        
+        String urlImage = (String) firestoreConfig.downloadFile(filename);
+        return ResponseEntity.ok().body("200 Successfully Downloaded!" + urlImage);
 	}
 
 	@Override

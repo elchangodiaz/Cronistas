@@ -37,13 +37,14 @@ public class FirestoreConfig implements IFirestoreConfig{
 											URLEncoder.encode(fileName, StandardCharsets.UTF_8));
 	}
 	
-	public Object downloadFile(String filename, String destFilePath) throws IOException {
+	public Object downloadFile(String filename) throws IOException {
         ////////////////////////////////   Download  ////////////////////////////////////////////////////////////////////////
         Credentials credentials = firebaseConfig.getCredentials();
         Storage storage = StorageOptions.newBuilder().setCredentials(credentials).build().getService();
         Blob blob = storage.get(BlobId.of("cronistastopilejo-d617b.appspot.com", filename));
-        blob.downloadTo(Paths.get(destFilePath));
-        return blob;
+        String URL =  "https://firebasestorage.googleapis.com/v0/b/" +blob.getBucket().toString() + "/o/" 
+        		+ blob.getName().toString() + "?alt=media&token=" + blob.getMetadata().toString().replace("{firebaseStorageDownloadTokens=", "");
+        return URL;
 	}
 	
 	

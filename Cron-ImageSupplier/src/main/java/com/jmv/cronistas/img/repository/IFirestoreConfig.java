@@ -10,5 +10,5 @@ public interface IFirestoreConfig {
 	String uploadFile(File file, String fileName) throws IOException;
 	File convertToFile(MultipartFile multipartFile, String fileName) throws IOException;
 	String getExtension(String fileName);
-	Object downloadFile(String id, String destFilePath) throws IOException;
+	Object downloadFile(String id) throws IOException;
 }
