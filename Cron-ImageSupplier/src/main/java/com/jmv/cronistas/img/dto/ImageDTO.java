@@ -1,5 +1,6 @@
 package com.jmv.cronistas.img.dto;
 
+import java.io.File;
 import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -14,5 +15,5 @@ public class ImageDTO {
 	private String key;
 	private String name;
 	private String url;
-	private MultipartFile file;
+	private File file;
 }

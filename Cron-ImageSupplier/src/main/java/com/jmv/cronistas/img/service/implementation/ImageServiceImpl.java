@@ -78,15 +78,21 @@ public class ImageServiceImpl implements IImageService {
 	public Object createImage(MultipartFile multipartFile){
 		log.debug(multipartFile.getName());
 		String TEMP_URL;
-
+		ImageDTO image = new ImageDTO();
         try {
-            String fileName = multipartFile.getOriginalFilename();                        // to get original file name
-            fileName = UUID.randomUUID().toString().concat(firestoreConfig.getExtension(fileName));  // to generated random string values for file name. 
-
-            File file = firestoreConfig.convertToFile(multipartFile, fileName);                      // to convert multipartFile to File
-            TEMP_URL = firestoreConfig.uploadFile(file, fileName);                                   // to get uploaded file link
-            file.delete();                                                                // to delete the copy of uploaded file stored in the project folder
-            return ResponseEntity.ok().body("Successfully Uploaded ! " +  TEMP_URL);                     // Your customized response
+            //String fileName = multipartFile.getOriginalFilename();                        // to get original file name
+        	image.setName(multipartFile.getOriginalFilename());  
+        	//fileName = UUID.randomUUID().toString().concat(firestoreConfig.getExtension(fileName));  // to generated random string values for file name. 
+        	image.setName(UUID.randomUUID().toString().concat(firestoreConfig.getExtension(image.getName())));
+        
+            //File file = firestoreConfig.convertToFile(multipartFile, fileName);                      // to convert multipartFile to File
+            image.setFile(firestoreConfig.convertToFile(multipartFile, image.getName()));
+        	//TEMP_URL = firestoreConfig.uploadFile(file, fileName);                                   // to get uploaded file link
+            image.setUrl(firestoreConfig.uploadFile(image.getFile(), image.getName()));
+            //file.delete();                                                                // to delete the copy of uploaded file stored in the project folder
+            image.getFile().delete();
+            //return ResponseEntity.ok().body("Successfully Uploaded ! " +  TEMP_URL);                     // Your customized response
+            return ResponseEntity.ok().body("Successfully Uploaded ! " +  image);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.ok().body("500" + e  + " Unsuccessfully Uploaded!");

@@ -27,7 +27,6 @@ public class FirebaseConfig  {
 	@PostConstruct
 	private void iniFirestore() throws IOException {
 		InputStream serviceAccount = getClass().getClassLoader().getResourceAsStream("cronistastopilejo-d617b-firebase-adminsdk-qpzh1-a058735a37.json");
-		
 		FirebaseOptions options = new FirebaseOptions.Builder()
 				.setCredentials(GoogleCredentials.fromStream(serviceAccount))
 				.setDatabaseUrl("https://cronistastopilejo-d617b.firebaseio.com")
